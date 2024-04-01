@@ -37,6 +37,7 @@ const socketIo = require("socket.io")(server, {
     origin: "*",
   }
 });
+let value = 0;
 
 socketIo.on('connection', function (socket) {
   console.log('a user connected');
@@ -44,6 +45,7 @@ socketIo.on('connection', function (socket) {
 
   setInterval(() => {
     // thời gian = ngày giờ hiện tại + 5s
+    value = value++;
     let timeNow = moment();
     let time = timeNow.add(5, 's').format('YYYY-MM-DD HH:mm:ss');
     console.log('time', time);
@@ -56,10 +58,10 @@ socketIo.on('connection', function (socket) {
     socketIo.emit('data', [
       {
         time: time,
-        value: Math.random() * 100
+        value: value
       }
     ]);
-  }, 5000);
+  }, 1000);
 });
 
 /**
