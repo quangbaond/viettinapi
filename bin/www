@@ -43,20 +43,14 @@ socketIo.on('connection', function (socket) {
   console.log('a user connected');
   // socketIo.emit('ketnoi', 'connected');
   let timeNow = moment();
-  let time = timeNow.add(5, 's').add(1, 'd');
+  let time = timeNow.add(1, 'd');
 
   setInterval(() => {
     // thời gian = ngày giờ hiện tại + 5s
     value = Math.floor(Math.random() * 100);
-    console.log('time', time);
-    console.log('value', value);
-    time = moment(time).add(1, 'd').format('YYYY-MM-DD HH:mm:ss');
-    time = Date.parse(time)/1000
-    // convert thời gian từ timestamp sang yyyy-mm-dd hh:mm:ss
-
-    time = moment.unix(time).format('YYYY-MM-DD');
-
-
+    time = moment(time).add(1, 'm').format('YYYY-MM-DD HH:mm:ss'); 
+    // covert time to tiemstamp
+    time = new Date(time).getTime();
     socketIo.emit('data', [
       {
         time: time,
